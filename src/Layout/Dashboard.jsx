@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 
-import { FaBook, FaEnvelope, FaHome, FaList, FaPaypal, FaRegCommentDots, FaUtensils } from "react-icons/fa";
+import { FaBook, FaEnvelope, FaHome, FaIdBadge, FaList, FaPaypal, FaRegCommentDots, FaUtensils } from "react-icons/fa";
 import { AuthContext } from "../Providers/AuthProvider";
 
 
@@ -20,6 +20,12 @@ const Dashboard = () => {
                         {
                             user ?
                                 <>
+                                    <li>
+                                        <NavLink to={`/dashboard/user-profile/${user?.email}`}>
+                                            <FaIdBadge />
+                                            User Profile</NavLink>
+                                    </li>
+
                                     <li >
                                         <NavLink to='/dashboard/addtask'>
                                             <FaUtensils></FaUtensils>

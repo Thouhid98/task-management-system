@@ -7,6 +7,7 @@ import Home from "../components/Home/Home";
 import Dashboard from "../Layout/Dashboard";
 import Addtask from "../../src/Pages/Dashboard/Addtask/Addtask"
 import Tasklist from "../../src/Pages/Dashboard/Tasklist/Tasklist"
+import Userprofile from "../Pages/Dashboard/Userprofile/Userprofile";
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         path:'/dashboard',
         element:<Dashboard></Dashboard>,
         children:[
+            {
+                path:'user-profile/:email',
+                element:<Userprofile></Userprofile>
+            },
             {
                 path:'addtask',
                 element: <Addtask></Addtask>
