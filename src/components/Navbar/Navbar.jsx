@@ -25,7 +25,12 @@ const Navbar = () => {
                         <li><a>Home</a></li>
                         <li><a>About</a></li>
                         <li><a>Contact</a></li>
-                        <li><a>Dashboard</a></li>
+                        {
+                            user?.email ?
+                                <Link to="/dashboard/addtask">
+                                    <li><a>Dashboard</a></li>
+                                </Link> : ''
+                        }
 
                     </ul>
                 </div>
@@ -37,10 +42,10 @@ const Navbar = () => {
                     <li><a>About</a></li>
                     <li><a>Contact</a></li>
                     {
-                        user?.email? 
-                        <Link to="/dashboard">
-                        <li><a>Dashboard</a></li>
-                        </Link>:''
+                        user?.email ?
+                            <Link to="/dashboard/addtask">
+                                <li><a>Dashboard</a></li>
+                            </Link> : ''
                     }
                 </ul>
             </div>

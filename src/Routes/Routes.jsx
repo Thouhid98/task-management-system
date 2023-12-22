@@ -4,6 +4,9 @@ import Mainlayout from "../Layout/Mainlayout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Home from "../components/Home/Home";
+import Dashboard from "../Layout/Dashboard";
+import Addtask from "../../src/Pages/Dashboard/Addtask/Addtask"
+import Tasklist from "../../src/Pages/Dashboard/Tasklist/Tasklist"
 
 
 const router = createBrowserRouter([
@@ -27,6 +30,20 @@ const router = createBrowserRouter([
     },
     
     // User Dashboard 
+    {
+        path:'/dashboard',
+        element:<Dashboard></Dashboard>,
+        children:[
+            {
+                path:'addtask',
+                element: <Addtask></Addtask>
+            },
+            {
+                path:'manage-tasks',
+                element:<Tasklist></Tasklist>
+            }
+        ]
+    }
    
     
    

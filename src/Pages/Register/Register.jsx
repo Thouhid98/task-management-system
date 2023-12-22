@@ -1,13 +1,16 @@
 import { useContext } from "react";
 import {AuthContext} from '../../Providers/AuthProvider'
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const Register = () => {
-    const {createUser}= useContext(AuthContext)
+    const {createUser, updateUserProfile}= useContext(AuthContext)
 
     const handleSignUp = e =>{
         e.preventDefault();
+        const name = e.target.name.value;
+        const photo = e.target.photoURL.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
@@ -23,59 +26,44 @@ const Register = () => {
             return;
         }
 
-       
-
-        //Old code createUser firebase 
+        // New Code 
+        // Firebase User Creation 
         createUser(email, password)
-        .then(data =>{
-            console.log(data);
-            Swal.fire({
-                title: 'Success!',
-                text: 'SignUp Successfull',
-                icon: 'success',
-                confirmButtonText: 'Cool'
-              })
-              e.target.reset();
+        .then(result =>{
+            const loggedUser = result.user
+            console.log(loggedUser);
+
+            // Update Profile 
+            updateUserProfile(name, photo)
+            .then(()=>{
+                console.log('user profile updated');
+
+                // Save User info to database 
+                const userInfo = {
+                    name: name,
+                    email: email,
+                    photo: photo
+                }
+                axios.post('http://localhost:5000/users', userInfo)
+                .then(res=>{
+                    console.log('add to database');
+                    if( res.data.acknowledged == true){
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'SignUp Successfull',
+                            icon: 'success',
+                            confirmButtonText: 'Cool'
+                        })
+                    }
+                    
+                })
+                
+            })
         })
-        .catch(error =>{
+        .catch(error=>{
             console.log(error);
         })
 
-        // New code 
-        // createUser(email, password)
-        // .then(result =>{
-        //     console.log(result.user);
-            
-            
-        //     const user = { email }
-        //     fetch('https://b8a11-server-side-seven.vercel.app/user', {
-        //         method:'POST',
-        //         headers:{
-        //             'content-type': 'application/json'
-        //         },
-        //         body:JSON.stringify(user)
-        //     })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         console.log(data);
-        //         Swal.fire({
-        //             title: 'Success!',
-        //             text: 'SignUp Successfull',
-        //             icon: 'success',
-        //             confirmButtonText: 'Cool'
-        //           })
-        //         e.target.reset();                 
-        //     })
-        // })
-        // .catch(error =>{
-        //     console.log(error);
-        //     Swal.fire({
-        //         title: 'warning!',
-        //         text: 'Try Different Email',
-        //         icon: 'warning',
-        //         confirmButtonText: 'Cool'
-        //     })
-        // })
 
     }
 
@@ -92,6 +80,13 @@ const Register = () => {
 
                         <div className="form-control">
                             <label className="label">
+                                <span className="label-text text-base font-medium">Name </span>
+                            </label>
+                            <input type="text" name='name' placeholder="Name" className="input input-bordered" required />
+                        </div>
+
+                        <div className="form-control">
+                            <label className="label">
                                 <span className="label-text text-base font-medium">Email </span>
                             </label>
                             <input type="email" name='email' placeholder="email" className="input input-bordered" required />
@@ -103,6 +98,14 @@ const Register = () => {
                                 <span className="label-text text-base font-medium">Confirm Password</span>
                             </label>
                             <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+
+                        </div>
+
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text text-base font-medium">PhotoURL</span>
+                            </label>
+                            <input type="text" name='photoURL' placeholder="PhotoURL" className="input input-bordered" required />
 
                         </div>
 
