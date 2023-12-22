@@ -4,7 +4,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 
 // google 
 import app from "../../firebase/firebase.config";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 
 const Login = () => {
@@ -56,6 +56,23 @@ const Login = () => {
               })
       }
 
+    //   Github 
+    // const auth = getAuth(app)
+
+    const gitHubprovider = new GithubAuthProvider()
+    const handleGithubSignIn = () =>{
+        signInWithPopup(auth, gitHubprovider)
+              .then(result => {
+                  console.log(result.user);
+                //   navigate(location?.state ? location.state : '/');
+  
+              })
+              .catch(error => {
+                  console.log(error);
+              })
+
+    }
+
 
     return (
         <div>
@@ -63,7 +80,7 @@ const Login = () => {
             <div className="">
                 <img className="w-[400px] h-[350px] my-16" src="/login/login.svg" alt="" />
             </div>
-            <div className="border lg:w-[500px] rounded-lg p-12 h-[500px]">
+            <div className="border lg:w-[500px] rounded-lg p-12 h-[570px]">
                 <h2 className="text-4xl text-center my-4 text-[#444444] font-bold">Login</h2>
                 <div>
                     <form onSubmit={handleLogin}>
@@ -98,6 +115,10 @@ const Login = () => {
                     
                         <button onClick={handleGoogleSignIn} className="btn btn-outline bg-[#FF3811] text-white w-full mb-3 mt-3">
                             Google
+                        </button>
+
+                        <button onClick={handleGithubSignIn} className="btn btn-outline bg-gray-800 text-white w-full mb-3 mt-3">
+                            Github
                         </button>
                     
                     </div>

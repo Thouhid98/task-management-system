@@ -31,17 +31,15 @@ const Dashboard = () => {
                                             <FaUtensils></FaUtensils>
                                             Add Tasks</NavLink>
                                     </li>
+                                    
 
                                     <li>
-                                        <NavLink to="/dashboard/manage-tasks">
-                                            <FaList></FaList>
-                                            Task List</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/dashboard/reviews'>
-                                            <FaRegCommentDots />
-                                            Your Reviews</NavLink>
-                                    </li>
+                                    <NavLink to={`/dashboard/registered-task/${user?.email}`}>
+                                    <FaList></FaList>
+                                        Task List</NavLink>
+                                </li>
+
+                                    
                                 </> : ''
                         }
 
@@ -57,7 +55,7 @@ const Dashboard = () => {
                         </li>
 
                         <li>
-                            <NavLink to='/contact-us'>
+                            <NavLink to='/'>
                                 <FaEnvelope />
                                 Contact</NavLink>
                         </li>

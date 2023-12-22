@@ -1,16 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
-const Tasklist = () => {
+const Usertasks = () => {
+    const { user } = useContext(AuthContext)
     const [tasks, setTasks] = useState([])
     console.log(tasks);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/manage-tasks');
+                const response = await axios.get(`http://localhost:5000/registered-task/${user.email}`);
                 setTasks(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -58,7 +59,6 @@ const Tasklist = () => {
                                     <th>Title</th>
                                     <th>Deadline</th>
                                     <th>Status</th>
-                                    
                                     <th>Delete</th>
                                 </tr>
                             </thead>
@@ -85,19 +85,16 @@ const Tasklist = () => {
                                         </td>
 
 
+                                        {/* <Link to={`/dashboard/updatecamps/${item._id}`}>
+                                            <th>
+                                                <button className="btn btn-primary my-5 btn-sm">Update</button>
+                                            </th>
+                                        </Link> */}
 
 
                                         <th>
                                             <button onClick={() => handleDeleteItem(item)} className="btn bg-red-500 text-white btn-sm">Delete </button>
                                         </th>
-
-                                        {/* <Link to={`/dashboard/updatetasks/${item._id}`}>
-                                        <th> 
-                                                <button className="btn btn-primary my-5 btn-sm">Update</button>
-                                            
-                                        </th>
-                                        </Link> */}
-
                                     </tr>)
                                 }
 
@@ -115,4 +112,4 @@ const Tasklist = () => {
     );
 };
 
-export default Tasklist;
+export default Usertasks;

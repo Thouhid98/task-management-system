@@ -73,7 +73,7 @@ const Register = () => {
             <div className="">
                 <img className="w-[400px] h-[350px] my-16" src="/login/login.svg" alt="" />
             </div>
-            <div className="border lg:w-[500px] rounded-lg p-12 h-[500px]">
+            <div className="border lg:w-[500px] rounded-lg p-12 h-[570px]">
                 <h2 className="text-4xl text-center my-4 text-[#444444] font-bold">SignUp</h2>
                 <div>
                     <form onSubmit={handleSignUp}>
@@ -114,9 +114,7 @@ const Register = () => {
                             <button className="btn bg-[#FF3811] text-white">signup</button>
                         </div>
 
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover text-base ml-40 text-center">Or Sign In with</a>
-                            </label>
+                            
                                 
                        
                     </form>
